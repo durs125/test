@@ -1,4 +1,4 @@
-## Put comments here that give an overall description of what your
+mat <- matrix( c(1,2,3,4),2,2)## Put comments here that give an overall description of what your
 ## functions do
 
 ## This function returns a list object with functions associated with it. 
@@ -21,7 +21,7 @@ makeCacheMatrix <- function(x= matrix()) {
 }
 
 
-## THis function computes the inverse of a matrix that has been processed by
+## This function computes the inverse of a matrix that has been processed by
 ##makeCacheMatrix. Lets you know if the inverse has been computed before
 
 cacheSolve <- function(x, ...) {
@@ -37,5 +37,5 @@ cacheSolve <- function(x, ...) {
         xm$setinverse(mm)
         mm
 
-              ## Return a matrix that is the inverse of 'x'
+              ## Return a  matrix that is the inverse of 'x'
 }
