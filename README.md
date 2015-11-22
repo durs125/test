@@ -21,6 +21,6 @@ The columns that relate to the mean and standard deviation are then extracted wi
 
 #A table containing all the data is named bigtable.txt,
 
-# a table with just the means of the means and standard deviations is called smalltable.txt .
+# a table with just the means of the means and standard deviations, grouped by person and activity is called smalltable.txt .
 
 
