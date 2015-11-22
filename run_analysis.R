@@ -71,10 +71,11 @@ theds<-rbind2(testds,trainds)
 
 #I need to take the headers and compare it using pearl style regular experessions to mean and std
 theds2<-theds[,sapply(names(theds),grepl,pattern="mean|std|test.*ubject|activity",perl=TRUE)]
+theds[,2]<-factor(theds2[,2], levels=1:6, labels=c('WALKING', 'WALKINGUPSTAIRS',  'WALKING_DOWNSTAIRS','SITTING','STANDING', 'LAYING'))
 write.table(theds2,"bigtable.txt",row.name=TRUE)
 ti<-data.frame(names(theds[,3:88]),row.names = names(theds[,3:88]))
-ti81<-as.list(t(ti))
-ti82<-as.list(t(ti))
+ti81<-list(personoractivity=c(as.character(1:30)))
+ti82<-list(personoractivity=c('WALKING', 'WALKINGUPSTAIRS',  'WALKING_DOWNSTAIRS','SITTING','STANDING', 'LAYING'))
 ti83<-as.list(t(ti))
 #vector of subject and activity to divid the data by
 subac<-apply(matrix(c(theds2[,2],theds2[,1]),ncol=2),1,function(x)paste("subject",x[1], "activity",x[2], sep=""))
@@ -84,15 +85,39 @@ for (i in 3:88){ti81[[names(theds2[,i,drop=FALSE])]]<- tapply(theds2[,i],theds2[
 for (i in 3:88){ti82[[names(theds2[,i,drop=FALSE])]]<- tapply(theds2[,i],theds2[,2],FUN=mean)}
 for (i in 3:88){ti83[[names(theds2[,i,drop=FALSE])]]<- tapply(theds2[,i],subac,FUN=mean)}
 
+
+
+
+
+
+
 ti84<-as.data.frame(ti83)
 
+
+names(ti83)<-tolower(names(ti83))
+names(ti83)<-gsub("[x/.]","",names(ti83),perl=TRUE)
 #
 names(ti84)<-tolower(names(ti84))
 names(ti84)<-gsub("[x/.]","",names(ti84),perl=TRUE)
 
-write.table(as.data.frame(ti83),"tidy.txt",row.name=FALSE )
 
 
-write.table(ti84,"tidyData.txt",row.name=FALSE )
+
+
+
 # write.table() using row.name=FALSE 
 
+
+#alternative
+
+ti82a<-as.data.frame(ti82)
+names(ti82a)<-tolower(names(ti82a))
+names(ti82a)<-gsub("[x/.]","",names(ti82a),perl=TRUE)
+
+ti81a<-as.data.frame(ti81)
+names(ti81a)<-tolower(names(ti81a))
+names(ti81a)<-gsub("[x/.]","",names(ti81a),perl=TRUE)
+
+
+titl<-rbind(ti82a,ti81a)
+write.table(titl,"tidyDataSet.txt",row.name=FALSE )
