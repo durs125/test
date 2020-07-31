@@ -4,7 +4,7 @@ library("tables")
 library("srtingr")
 library("reshape2")
 
-##THis  code was written to work with the directory system of Linux. On Windows the slashes need to be in the oposite direction
+##This  code was written to work with the directory system of Linux. On Windows the slashes need to be in the oposite direction
 ##Also there are two slashes in windows for every slash in Linux. 
 
 # First check to make sure that the infomation is not overwritting anything and then make a new directory.
@@ -34,23 +34,14 @@ xxx2<-gsub("[/(]|[)]|/,|/-","",xx[[2]],perl=TRUE)
 xxx3<-gsub(",|[/-]","",xxx2,perl=TRUE)
 
 
-#xxx2<-strsplit(as.character(xx[[2]]),split="/,|/-",perl=TRUE)
-#xxx2<-sapply(xxx2,function(x){strsplit(as.character(x[1]),split="-")})
-##This nex bit takes the data that was split by the removal of the commas and dashes and pastes it back together.
 #It does not work too well on things that would be split into more than 3 parts but that is fine for this data set 
 #All of the names in this data set that we care about are only 2 or 3 long
-#xxx3<-lapply(xxx2,function(x){paste(x[1],x[2],if(x[2]!=x[length(x)])x[length(x)])})
-
-
 
 
 #Not the most efficient way to do things but this takes care of the duplicate names issue
-#I suppoose I could have just appended a number to the end of each name
 xxx4<-as.data.frame(table(as.list(1:561),dnn=xxx3))
 
 xxx4<-xxx4[,]
-#combind all the test data into one dataframe
-#vv<-c(names(xxx4)[1:561])
 vv<-as.character(names(xxx4))[1:561]
 X_test<-read.table("test/X_test.txt",col.names=vv)
 
@@ -87,10 +78,6 @@ for (i in 3:88){ti83[[names(theds2[,i,drop=FALSE])]]<- tapply(theds2[,i],subac,F
 
 
 
-
-
-
-
 ti84<-as.data.frame(ti83)
 
 
@@ -100,15 +87,6 @@ names(ti83)<-gsub("[x/.]","",names(ti83),perl=TRUE)
 names(ti84)<-tolower(names(ti84))
 names(ti84)<-gsub("[x/.]","",names(ti84),perl=TRUE)
 
-
-
-
-
-
-# write.table() using row.name=FALSE 
-
-
-#alternative
 
 ti82a<-as.data.frame(ti82)
 names(ti82a)<-tolower(names(ti82a))
